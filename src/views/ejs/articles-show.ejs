@@ -1,0 +1,22 @@
+<h1>Article</h1>
+
+<article class="article-view">
+  <h2><%= article.title || '(без назви)' %></h2>
+
+  <% if (article.body) { %>
+    <p><%= article.body %></p>
+  <% } else { %>
+    <p><em>Текст статті відсутній.</em></p>
+  <% } %>
+
+  <% if (article.createdAt) { %>
+    <small>
+      Створено:
+      <%= new Date(article.createdAt).toLocaleString() %>
+    </small>
+  <% } %>
+</article>
+
+<p>
+  <a href="/articles">← Назад до списку статей</a>
+</p>

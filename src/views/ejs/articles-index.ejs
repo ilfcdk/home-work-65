@@ -1,0 +1,58 @@
+<h1>Articles</h1>
+
+<% if (msg) { %>
+  <div class="flash flash--error">
+    <%= (typeof msg === 'object' && msg.text) ? msg.text : msg %>
+  </div>
+<% } %>
+
+<form method="post" action="/articles" class="form-column">
+  <div class="form-group">
+    <label for="title">Заголовок</label>
+    <input
+      id="title"
+      name="title"
+      type="text"
+      class="input"
+      placeholder="Введіть заголовок статті…"
+      required
+    />
+  </div>
+
+  <div class="form-group">
+    <label for="body">Текст статті</label>
+    <textarea
+      id="body"
+      name="body"
+      rows="8"
+      cols="80"
+      class="textarea"
+      placeholder="Напишіть текст статті тут…"
+    ></textarea>
+  </div>
+
+  <button type="submit" class="btn">Створити статтю</button>
+</form>
+
+<hr />
+
+<% if (!articles || articles.length === 0) { %>
+  <p>Наразі статей немає.</p>
+<% } else { %>
+  <ul class="articles-list">
+    <% articles.forEach(function(article) { %>
+      <li class="articles-list-item">
+        <a href="/articles/<%= article._id %>">
+          <strong><%= article.title || '(без назви)' %></strong>
+        </a>
+        <% if (article.body) { %>
+          <div class="articles-snippet">
+            <%= article.body.length > 120
+                  ? article.body.slice(0, 120) + '…'
+                  : article.body %>
+          </div>
+        <% } %>
+      </li>
+    <% }); %>
+  </ul>
+<% } %>

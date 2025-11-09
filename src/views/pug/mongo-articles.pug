@@ -1,0 +1,24 @@
+extends layout
+
+block content
+  .page
+    h1 MongoDB Articles (Atlas)
+
+    if info
+      p.notice= info
+
+    if !docs || docs.length === 0
+      p Наразі в MongoDB немає жодної статті.
+    else
+      ul.mongo-list
+        each doc in docs
+          li
+            h3= doc.title || '(без назви)'
+            if doc.body
+              p= doc.body
+            if doc.createdAt
+              small Створено: #{new Date(doc.createdAt).toLocaleString()}
+
+    hr
+    p
+      | Ці дані читаються з колекції "mongoarticles" у MongoDB Atlas за допомогою офіційного драйвера Node.js.
